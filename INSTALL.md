@@ -1,181 +1,186 @@
-# 🏋️ Body Management System - Installation Guide
+# 🏋️ Body Management System - Interactive Install
 
-## 🚀 One-Command Install
-
-```bash
-curl -sSL https://raw.githubusercontent.com/leozvc/body-management-system/main/setup.sh | bash
-```
-
-**Note:** This script requires:
-- OpenClaw installed (`npm install -g openclaw`)
-- Python 3.10+
-- intervals.icu account
+> **Copy and paste this URL into your OpenClaw chat to start interactive installation**
 
 ---
 
-## 📋 Manual Installation
+## 🚀 Install in OpenClaw Chat
 
-### Step 1: Clone Repository
+**Step 1:** Copy this command:
 
-```bash
-cd ~/.openclaw/workspace/skills
-git clone https://github.com/leozvc/body-management-system.git
+```
+curl -sSL https://raw.githubusercontent.com/leozvc/body-management-system/main/INSTALL.md
 ```
 
-### Step 2: Configure API Credentials
+**Step 2:** Paste into your OpenClaw chat and send
 
-Create `config.json` in the skills directory:
+**Step 3:** Follow the interactive prompts!
+
+---
+
+## 📋 What Happens Next
+
+The OpenClaw agent will guide you through:
+
+### 1️⃣ Credential Collection
+```
+Agent: I'll help you install the Body Management System.
+
+First, I need your intervals.icu API credentials:
+1. API Key (from Settings → API → Password field)
+2. Athlete ID (format: i206099)
+
+To get these:
+1. Visit https://intervals.icu
+2. Login → Settings → API
+3. Copy the "Password" value
+```
+
+### 2️⃣ Repository Setup
+```
+Agent: Cloning repository...
+✅ Repository cloned to ~/.openclaw/workspace/skills/body-management
+```
+
+### 3️⃣ Configuration
+```
+Agent: Creating configuration with your credentials...
+✅ Config created and copied to skills
+```
+
+### 4️⃣ Connection Test
+```
+Agent: Testing API connection...
+✅ Connection successful! Welcome, [Your Name]
+```
+
+### 5️⃣ Skill Installation
+```
+Agent: Enabling skills...
+✅ meal-to-intervals installed
+✅ intervals-status-reporter installed
+```
+
+### 6️⃣ Completion
+```
+Agent: 🎉 Installation Complete!
+
+Try it now: Send "查看我今天的身体状态"
+```
+
+---
+
+## 🎯 Quick Reference
+
+### Get Your API Credentials
+
+| Step | Action |
+|------|--------|
+| 1 | Visit https://intervals.icu |
+| 2 | Login to your account |
+| 3 | Click avatar → Settings → API |
+| 4 | Copy the **Password** field (API Key) |
+| 5 | Note your Athlete ID from URL (e.g., i206099) |
+
+### Common Commands After Install
+
+```
+查看我今天的身体状态          # Get body status report
+早餐吃了 XXX，记录一下         # Log a meal
+我今天适合打网球吗            # Training recommendation
+openclaw skills list          # List installed skills
+```
+
+---
+
+## 📦 What Gets Installed
+
+```
+~/.openclaw/workspace/skills/body-management/
+├── skills/
+│   ├── meal-to-intervals/           # Diet logging
+│   └── intervals-status-reporter/   # Body analysis
+├── config.json                      # Your API config
+├── setup.sh                         # Setup script
+├── INSTALL.md                       # This file
+├── USAGE_PROMPTS.md                 # Usage examples
+└── README.md                        # Quick reference
+```
+
+---
+
+## 🔧 Manual Installation (Alternative)
+
+If interactive install doesn't work:
 
 ```bash
+# 1. Clone manually
+cd ~/.openclaw/workspace/skills
+git clone https://github.com/leozvc/body-management-system.git
+
+# 2. Create config
 cd body-management
 cat > config.json << 'EOF'
 {
   "intervals_icu": {
-    "api_key": "YOUR_API_KEY_HERE",
+    "api_key": "YOUR_API_KEY",
     "athlete_id": "i206099"
-  },
-  "fitness_goals": {
-    "primary_goal": "weight_loss",
-    "training_days_per_week": 5
   }
 }
 EOF
-```
 
-**Get your API credentials:**
-1. Login to https://intervals.icu
-2. Go to Settings → API
-3. Copy the **Password** field (this is your API key)
-4. Your Athlete ID is in the URL (e.g., `i206099`)
+# 3. Copy config
+cp config.json skills/meal-to-intervals/
+cp config.json skills/intervals-status-reporter/
 
-### Step 3: Copy Config to Skills
-
-```bash
-# Copy to meal-to-intervals
-cp config.json skills/meal-to-intervals/config.json
-
-# Copy to intervals-status-reporter
-cp config.json skills/intervals-status-reporter/config.json
-```
-
-### Step 4: Install Python Dependencies
-
-```bash
-pip3 install requests --user
-```
-
-### Step 5: Install Skills to OpenClaw
-
-```bash
-# Install meal-to-intervals
-openclaw skills enable meal-to-intervals
-
-# Install intervals-status-reporter
-openclaw skills enable intervals-status-reporter
-```
-
-**Note:** You may need to restart OpenClaw gateway:
-```bash
-openclaw gateway restart
-```
-
-### Step 6: Verify Installation
-
-```bash
-# Check skills are installed
-openclaw skills list | grep -E "meal|intervals"
-
-# Test body status report
+# 4. Test
 cd skills/intervals-status-reporter
 python3 scripts/body_status_report.py
 ```
-
-If you see a formatted report, installation is successful! ✅
-
----
-
-## ⚙️ Optional: Setup Daily Reminders
-
-To receive daily diet target reminders at 06:00:
-
-```bash
-openclaw cron add cron-daily-diet.json
-```
-
-Verify:
-```bash
-openclaw cron list
-```
-
----
-
-## 🎯 Quick Start
-
-After installation, send in OpenClaw chat:
-
-```
-查看我今天的身体状态
-```
-
-You should receive a complete body status report!
-
----
-
-## 📚 Usage Examples
-
-See [USAGE_PROMPTS.md](USAGE_PROMPTS.md) for:
-- Common commands
-- Example conversations
-- Pro tips
-- Troubleshooting
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Issue: "API credentials validation failed"
+**Issue: "Agent didn't respond to curl command"**
 
-**Solution:**
-1. Verify API Key is the **Password** field (not username)
-2. Verify Athlete ID format: `i` + numbers (e.g., `i206099`)
-3. Test connection:
-   ```bash
-   cd skills/intervals-status-reporter
-   python3 scripts/intervals_api.py --action get_summary_data
-   ```
-
-### Issue: "Skills not found"
-
-**Solution:**
-1. Check skills directory:
-   ```bash
-   ls ~/.openclaw/workspace/skills/
-   ```
-2. Verify skills are in correct location:
-   ```bash
-   ls ~/.openclaw/workspace/skills/body-management/skills/
-   ```
-3. Restart gateway:
-   ```bash
-   openclaw gateway restart
-   ```
-
-### Issue: "Python requests not installed"
-
-**Solution:**
-```bash
-pip3 install requests --user
+Try sending:
 ```
+Please help me install the body management system from GitHub
+```
+
+**Issue: "API credentials validation failed"**
+
+- Verify API Key is the **Password** field (not username)
+- Verify Athlete ID format: `i` + numbers (e.g., i206099)
+
+**Issue: "Skills not found after install"**
+
+```bash
+openclaw skills list
+openclaw gateway restart
+```
+
+---
+
+## 📚 Documentation
+
+| File | Purpose |
+|------|---------|
+| **INSTALL.md** | This file - interactive install guide |
+| **USAGE_PROMPTS.md** | Copy-paste prompts for common tasks |
+| **README.md** | Quick reference and features |
+| **body-management-system.md** | Full feature overview |
 
 ---
 
 ## 📞 Support
 
 - **GitHub Issues**: https://github.com/leozvc/body-management-system/issues
-- **Usage Prompts**: [USAGE_PROMPTS.md](USAGE_PROMPTS.md)
-- **Features**: [body-management-system.md](../../body-management-system.md)
+- **Discussions**: https://github.com/leozvc/body-management-system/discussions
 
 ---
 
 **Version:** 1.0.0  
-**Last Updated:** 2026-03-06
+**License:** MIT  
+**Author:** leozvc
