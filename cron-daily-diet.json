@@ -1,0 +1,17 @@
+{
+  "name": "每日减脂摄入目标提醒",
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 6 * * *",
+    "tz": "Asia/Shanghai"
+  },
+  "payload": {
+    "kind": "agentTurn",
+    "message": "【减脂摄入目标提醒】生成今日减脂饮食计划，并发送：1. 今日目标摄入热量 2. 三大营养素分配 3. 餐次安排提醒",
+    "timeoutSeconds": 60
+  },
+  "sessionTarget": "isolated",
+  "delivery": {
+    "mode": "announce"
+  }
+}
