@@ -28,6 +28,9 @@ config.json
 *.key
 *.secret
 
+# Installation scripts (generated)
+install-remote.sh
+
 # IDE
 .vscode/
 .idea/
