@@ -1,84 +1,135 @@
-# 🏋️ Body Management System - OpenClaw Skills
+# 🏋️ Body Management System
 
-> One-click deployment for personal health and fat loss management
+> One-command installation for automated health tracking and training recommendations
+
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![OpenClaw](https://img.shields.io/badge/powered%20by-OpenClaw-orange.svg)](https://openclaw.ai)
 
 ---
 
-## 🚀 5-Minute Quick Install
-
-### Prerequisites
-
-- ✅ Registered [intervals.icu](https://intervals.icu) account with Garmin/Strava linked
-- ✅ OpenClaw installed (`npm install -g openclaw`)
-- ✅ Python 3.10+
-
-### One-Click Install
+## 🚀 One-Command Install
 
 ```bash
-# 1. Enter skill directory
-cd ~/.openclaw/workspace/skills/body-management
-
-# 2. Run install script
-chmod +x install.sh
-./install.sh
+curl -sSL https://raw.githubusercontent.com/leozvc/body-management-system/main/setup.sh | bash
 ```
 
-### Follow Prompts
+That's it! ✨
 
-Script will guide you to input:
-1. **intervals.icu API Key** - Get from Settings → API → Password field
-2. **Athlete ID** - Format: `i206099` (i + numbers)
-3. **Telegram Group ID** (optional) - For group reminders, skip for private chat
+The installer will:
+1. ✅ Check prerequisites (OpenClaw, Python)
+2. ✅ Download all skills
+3. ✅ Guide you through API setup
+4. ✅ Install and configure everything
 
-### After Installation
+---
 
-Send in OpenClaw chat:
+## 📋 Prerequisites
+
+- **OpenClaw**: `npm install -g openclaw`
+- **Python 3.10+**
+- **intervals.icu** account ([register here](https://intervals.icu))
+
+---
+
+## 🎯 Quick Start
+
+After installation, send in OpenClaw chat:
+
 ```
 查看我今天的身体状态
 ```
 
+You'll get a complete body status report with:
+- ❤️ HRV, resting heart rate, sleep analysis
+- 📊 Training load (CTL/ATL/TSB)
+- 🎾 Training recommendations
+- 🍽 Nutrition tracking
+
 ---
 
-## 📦 Included Skills
+## 📦 What's Included
 
-| Skill | Function |
-|-------|----------|
-| `meal-to-intervals` | Sync diet records to intervals.icu |
-| `intervals-status-reporter` | Body status analysis & training recommendations |
+### Skills
+
+| Skill | Description |
+|-------|-------------|
+| `meal-to-intervals` | Log meals to intervals.icu with auto-calculated macros |
+| `intervals-status-reporter` | Generate standardized body status reports |
+
+### Features
+
+- ✅ **Automated Diet Logging** - Text or photo input, auto-sync to intervals.icu
+- ✅ **Body Status Analysis** - HRV, sleep, training load, fatigue assessment
+- ✅ **Smart Training Recommendations** - Based on your current fatigue level
+- ✅ **Daily Reminders** - Optional 06:00 diet target notifications
+- ✅ **Privacy First** - All data stays in your intervals.icu account
 
 ---
 
 ## 📱 Common Commands
 
-| Scenario | Send Message |
-|----------|--------------|
-| Check body status | "查看我今天的身体状态" |
-| Log diet | "早餐吃了 XXX，记录一下" |
-| Training decision | "我今天适合打网球吗" |
-| List skills | `openclaw skills list` |
-| List cron jobs | `openclaw cron list` |
+| Command | Description |
+|---------|-------------|
+| `查看我今天的身体状态` | Get today's body status report |
+| `早餐吃了 XXX，记录一下` | Log a meal |
+| `我今天适合打网球吗` | Get training recommendation |
+| `openclaw skills list` | List installed skills |
+| `openclaw cron list` | List scheduled reminders |
 
 ---
 
-## 📚 Detailed Docs
+## 📚 Documentation
 
-- **Features**: `../../body-management-system.md`
-- **Deployment Checklist**: `../../body-management-deployment-checklist.md`
+- **[INSTALL.md](INSTALL.md)** - Detailed installation guide
+- **[body-management-system.md](../../body-management-system.md)** - Full feature overview
+- **[body-management-deployment-checklist.md](../../body-management-deployment-checklist.md)** - Deployment checklist
 
 ---
 
-## ❓ FAQ
+## 🔧 Manual Installation
 
-**Q: Where to get API Key?**  
-A: Login intervals.icu → Avatar → Settings → API → Copy Password field
+```bash
+# Clone repository
+cd ~/.openclaw/workspace/skills
+git clone https://github.com/leozvc/body-management-system.git
 
-**Q: Athlete ID format?**  
-A: `i` + numbers, e.g., `i206099`
+# Run installer
+cd body-management
+chmod +x install.sh
+./install.sh
+```
 
-**Q: Installation failed?**  
-A: Run `./install.sh` - it will validate and show error details
+---
+
+## 🐛 Troubleshooting
+
+**Issue: "API credentials validation failed"**
+- Make sure you copied the **Password** field from intervals.icu API settings (not username)
+- Athlete ID should be `i` + numbers (e.g., `i206099`)
+
+**Issue: "OpenClaw not found"**
+- Run: `npm install -g openclaw`
+- Then: `openclaw gateway start`
+
+**Issue: Skills not showing up**
+- Run: `openclaw skills list` to verify installation
+- Restart gateway: `openclaw gateway restart`
+
+---
+
+## 📞 Support
+
+- **GitHub Issues**: https://github.com/leozvc/body-management-system/issues
+- **Documentation**: See `INSTALL.md` and `body-management-system.md`
+
+---
+
+## 📄 License
+
+MIT License - See [LICENSE](LICENSE) file for details.
 
 ---
 
 **Version:** 1.0.0  
-**Updated:** 2026-03-06
+**Author:** leozvc  
+**Last Updated:** 2026-03-06
