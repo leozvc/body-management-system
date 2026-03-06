@@ -1,33 +1,13 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-ENV/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
 # Config files with secrets (DO NOT COMMIT)
 config.json
+skills/*/config.json
 *.key
 *.secret
 *.env
+
+# Sample/test data files (user data)
+skills/meal-to-intervals/*.json
+!skills/meal-to-intervals/assets/config_template.json
 
 # Python
 __pycache__/
@@ -43,20 +23,5 @@ Thumbs.db
 .idea/
 *.swp
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-Thumbs.db
-
 # Logs
 *.log
-
-# Test files
-/tmp/
-/test-*.json

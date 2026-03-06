@@ -1,9 +1,0 @@
-{
-  "meal_name": "午餐",
-  "meal_time": "2026-03-01T12:32:29+08:00",
-  "items": [
-    {"name": "chicken thigh meat", "grams": 200},
-    {"name": "bamboo shoots", "grams": 50},
-    {"name": "cooked rice", "grams": 200}
-  ]
-}
