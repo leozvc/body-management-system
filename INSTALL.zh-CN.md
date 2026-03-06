@@ -58,6 +58,7 @@ curl -sSL https://raw.githubusercontent.com/leozvc/body-management-system/main/I
 ```bash
 cd ~/.openclaw/workspace/skills/body-management
 git pull origin main
+cat VERSION
 ```
 
 ---
@@ -78,34 +79,51 @@ git pull origin main
 3. 复制 "Password" 值
 ```
 
-### 2️⃣ 仓库设置
+### 2️⃣ 创建数据目录
+```
+助手：正在创建你的数据目录...
+
+位置：~/.openclaw/workspace/body-management-data/
+
+这里将存储你的数据：
+- 饮食记录
+- 健康数据
+- API 配置
+
+✅ 数据目录已创建
+```
+
+### 3️⃣ 仓库设置
 ```
 助手：正在克隆仓库...
 ✅ 仓库已克隆到 ~/.openclaw/workspace/skills/body-management
 ```
 
-### 3️⃣ 配置创建
+### 4️⃣ 配置创建
 ```
-助手：使用你的凭证创建配置...
-✅ 配置已创建并复制到技能目录
+助手：正在数据目录中创建配置...
+✅ 配置已保存：~/.openclaw/workspace/body-management-data/config.json
 ```
 
-### 4️⃣ 连接测试
+### 5️⃣ 连接测试
 ```
 助手：正在测试 API 连接...
 ✅ 连接成功！欢迎，[你的名字]
 ```
 
-### 5️⃣ 技能安装
+### 6️⃣ 技能安装
 ```
 助手：正在启用技能...
 ✅ meal-to-intervals 已安装
 ✅ intervals-status-reporter 已安装
 ```
 
-### 6️⃣ 完成
+### 7️⃣ 完成
 ```
 助手：🎉 安装完成！
+
+你的数据将存储在：
+~/.openclaw/workspace/body-management-data/
 
 立即试用：发送 "查看我今天的身体状态"
 ```
@@ -137,18 +155,27 @@ openclaw skills list          # 列出已安装技能
 
 ## 📦 安装内容
 
+### 你的数据目录（新建）
+```
+~/.openclaw/workspace/body-management-data/
+├── config.json              # API 凭证 ⭐
+├── meals/                   # 饮食记录
+├── wellness/                # 健康数据
+└── logs/                    # 操作日志
+```
+
+### 技能目录（只读）
 ```
 ~/.openclaw/workspace/skills/body-management/
-├── skills/
-│   ├── meal-to-intervals/           # 饮食记录
-│   └── intervals-status-reporter/   # 身体分析
-├── config.json                      # API 配置
-├── VERSION                          # 版本号
-├── INSTALL.zh-CN.md                 # 中文安装指南
-├── INSTALL.md                       # English Install Guide
-├── USAGE_PROMPTS.md                 # 使用示例
-└── README.md                        # 快速参考
+├── skills/                  # 技能代码
+├── scripts/                 # 安装脚本
+├── docs/                    # 文档
+└── ...
 ```
+
+**重要：** 
+- ✅ 你的数据在 `body-management-data/`（请备份！）
+- ❌ 不要修改 `skills/body-management/` 中的文件
 
 ---
 
@@ -157,13 +184,15 @@ openclaw skills list          # 列出已安装技能
 如果交互式安装不起作用：
 
 ```bash
-# 1. 克隆仓库
+# 1. 创建数据目录
+mkdir -p ~/.openclaw/workspace/body-management-data
+
+# 2. 克隆仓库
 cd ~/.openclaw/workspace/skills
 git clone https://github.com/leozvc/body-management-system.git
 
-# 2. 创建配置
-cd body-management
-cat > config.json << 'EOF'
+# 3. 在数据目录中创建配置
+cat > ~/.openclaw/workspace/body-management-data/config.json << 'EOF'
 {
   "intervals_icu": {
     "api_key": "你的 API_KEY",
@@ -172,12 +201,8 @@ cat > config.json << 'EOF'
 }
 EOF
 
-# 3. 复制配置
-cp config.json skills/meal-to-intervals/
-cp config.json skills/intervals-status-reporter/
-
 # 4. 测试
-cd skills/intervals-status-reporter
+cd body-management/skills/intervals-status-reporter
 python3 scripts/body_status_report.py
 ```
 
@@ -189,6 +214,7 @@ python3 scripts/body_status_report.py
 
 - 确认 API Key 是 **Password** 字段（不是用户名）
 - 确认 Athlete ID 格式：`i` + 数字（如 i206099）
+- 检查配置位置：`~/.openclaw/workspace/body-management-data/config.json`
 
 **问题："安装后技能未找到"**
 
@@ -205,6 +231,16 @@ git pull origin main
 cat VERSION
 ```
 
+**问题："我的数据存储在哪里？"**
+
+```bash
+# 查看数据目录
+ls -la ~/.openclaw/workspace/body-management-data/
+
+# 查看饮食记录
+ls -la ~/.openclaw/workspace/body-management-data/meals/
+```
+
 ---
 
 ## 📚 文档索引
@@ -213,9 +249,32 @@ cat VERSION
 |------|------|
 | **INSTALL.zh-CN.md** | 中文安装指南（本文件） |
 | **INSTALL.md** | English Installation Guide |
+| **DATA_STORAGE.md** | 数据存储位置和最佳实践 ⭐ |
 | **USAGE_PROMPTS.md** | 复制粘贴的提示词库 |
 | **README.md** | 快速参考和功能介绍 |
-| **body-management-system.md** | 完整功能说明 |
+
+---
+
+## 🔒 隐私与安全
+
+### 数据存储位置
+
+| 数据类型 | 位置 | 敏感度 |
+|---------|------|--------|
+| API Key | `body-management-data/config.json` | 🔴 高 |
+| 饮食记录 | `body-management-data/meals/` | 🟡 中 |
+| 健康数据 | `body-management-data/wellness/` | 🟡 中 |
+| 技能代码 | `skills/body-management/` | 🟢 无 |
+
+### 安全建议
+
+1. **永远不要提交** `body-management-data/` 到 Git
+2. **定期备份** - 你的数据很宝贵
+3. **检查权限**：
+   ```bash
+   chmod 700 ~/.openclaw/workspace/body-management-data/
+   chmod 600 ~/.openclaw/workspace/body-management-data/config.json
+   ```
 
 ---
 

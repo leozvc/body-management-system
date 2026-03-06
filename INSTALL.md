@@ -81,34 +81,51 @@ To get these:
 3. Copy the "Password" value
 ```
 
-### 2️⃣ Repository Setup
+### 2️⃣ Create Data Directory
+```
+Agent: Creating your data directory...
+
+Location: ~/.openclaw/workspace/body-management-data/
+
+This is where YOUR data will be stored:
+- Meal records
+- Wellness data
+- API configuration
+
+✅ Data directory created
+```
+
+### 3️⃣ Repository Setup
 ```
 Agent: Cloning repository...
 ✅ Repository cloned to ~/.openclaw/workspace/skills/body-management
 ```
 
-### 3️⃣ Configuration
+### 4️⃣ Configuration
 ```
-Agent: Creating configuration with your credentials...
-✅ Config created and copied to skills
+Agent: Creating configuration in your data directory...
+✅ Config saved to: ~/.openclaw/workspace/body-management-data/config.json
 ```
 
-### 4️⃣ Connection Test
+### 5️⃣ Connection Test
 ```
 Agent: Testing API connection...
 ✅ Connection successful! Welcome, [Your Name]
 ```
 
-### 5️⃣ Skill Installation
+### 6️⃣ Skill Installation
 ```
 Agent: Enabling skills...
 ✅ meal-to-intervals installed
 ✅ intervals-status-reporter installed
 ```
 
-### 6️⃣ Completion
+### 7️⃣ Completion
 ```
 Agent: 🎉 Installation Complete!
+
+Your data will be stored in:
+~/.openclaw/workspace/body-management-data/
 
 Try it now: Send "查看我今天的身体状态"
 ```
@@ -140,18 +157,27 @@ openclaw skills list          # List installed skills
 
 ## 📦 What Gets Installed
 
+### Your Data Directory (Created)
+```
+~/.openclaw/workspace/body-management-data/
+├── config.json              # Your API credentials ⭐
+├── meals/                   # Meal logging records
+├── wellness/                # Wellness tracking data
+└── logs/                    # Operation logs
+```
+
+### Skills Directory (Read-Only)
 ```
 ~/.openclaw/workspace/skills/body-management/
-├── skills/
-│   ├── meal-to-intervals/           # Diet logging
-│   └── intervals-status-reporter/   # Body analysis
-├── config.json                      # Your API config
-├── VERSION                          # Version file
-├── INSTALL.md                       # English install guide
-├── INSTALL.zh-CN.md                 # 中文安装指南
-├── USAGE_PROMPTS.md                 # Usage examples
-└── README.md                        # Quick reference
+├── skills/                  # Skill code
+├── scripts/                 # Installation scripts
+├── docs/                    # Documentation
+└── ...
 ```
+
+**Important:** 
+- ✅ Your data is in `body-management-data/` (backup this!)
+- ❌ Don't modify files in `skills/body-management/`
 
 ---
 
@@ -160,13 +186,15 @@ openclaw skills list          # List installed skills
 If interactive install doesn't work:
 
 ```bash
-# 1. Clone manually
+# 1. Create data directory
+mkdir -p ~/.openclaw/workspace/body-management-data
+
+# 2. Clone repository
 cd ~/.openclaw/workspace/skills
 git clone https://github.com/leozvc/body-management-system.git
 
-# 2. Create config
-cd body-management
-cat > config.json << 'EOF'
+# 3. Create config in data directory
+cat > ~/.openclaw/workspace/body-management-data/config.json << 'EOF'
 {
   "intervals_icu": {
     "api_key": "YOUR_API_KEY",
@@ -175,12 +203,8 @@ cat > config.json << 'EOF'
 }
 EOF
 
-# 3. Copy config
-cp config.json skills/meal-to-intervals/
-cp config.json skills/intervals-status-reporter/
-
 # 4. Test
-cd skills/intervals-status-reporter
+cd body-management/skills/intervals-status-reporter
 python3 scripts/body_status_report.py
 ```
 
@@ -192,6 +216,7 @@ python3 scripts/body_status_report.py
 
 - Verify API Key is the **Password** field (not username)
 - Verify Athlete ID format: `i` + numbers (e.g., i206099)
+- Check config location: `~/.openclaw/workspace/body-management-data/config.json`
 
 **Issue: "Skills not found after install"**
 
@@ -208,6 +233,16 @@ git pull origin main
 cat VERSION
 ```
 
+**Issue: "Where is my data stored?"**
+
+```bash
+# View your data directory
+ls -la ~/.openclaw/workspace/body-management-data/
+
+# View meal records
+ls -la ~/.openclaw/workspace/body-management-data/meals/
+```
+
 ---
 
 ## 📚 Documentation
@@ -216,9 +251,32 @@ cat VERSION
 |------|---------|
 | **INSTALL.md** | English installation guide |
 | **INSTALL.zh-CN.md** | 中文安装指南 |
+| **DATA_STORAGE.md** | Data storage locations & best practices ⭐ |
 | **USAGE_PROMPTS.md** | Copy-paste prompts for common tasks |
 | **README.md** | Quick reference and features |
-| **body-management-system.md** | Full feature overview |
+
+---
+
+## 🔒 Privacy & Security
+
+### What's Stored Where
+
+| Data Type | Location | Sensitive? |
+|-----------|----------|------------|
+| API Key | `body-management-data/config.json` | 🔴 YES |
+| Meal Records | `body-management-data/meals/` | 🟡 Partially |
+| Wellness Data | `body-management-data/wellness/` | 🟡 Partially |
+| Skill Code | `skills/body-management/` | 🟢 No |
+
+### Security Tips
+
+1. **Never commit** `body-management-data/` to Git
+2. **Backup regularly** - Your data is valuable
+3. **Check permissions**:
+   ```bash
+   chmod 700 ~/.openclaw/workspace/body-management-data/
+   chmod 600 ~/.openclaw/workspace/body-management-data/config.json
+   ```
 
 ---
 
