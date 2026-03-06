@@ -4,6 +4,38 @@
 
 ---
 
+## 🔄 Version Check (Run First)
+
+Before starting installation, check if update is needed:
+
+```bash
+# Check if project exists
+if [ -d "~/.openclaw/workspace/skills/body-management/.git" ]; then
+  cd ~/.openclaw/workspace/skills/body-management
+  
+  # Get local version
+  LOCAL_VERSION=$(cat VERSION 2>/dev/null || echo "unknown")
+  
+  # Get remote version (from GitHub)
+  REMOTE_VERSION=$(curl -sSL https://raw.githubusercontent.com/leozvc/body-management-system/main/VERSION 2>/dev/null || echo "unknown")
+  
+  # Compare versions
+  if [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ] && [ "$REMOTE_VERSION" != "unknown" ]; then
+    echo "📦 Version Check"
+    echo ""
+    echo "Local version:  $LOCAL_VERSION"
+    echo "Latest version: $REMOTE_VERSION"
+    echo ""
+    echo "New version available! Update now? [y/n]"
+    # Wait for user response
+  else
+    echo "✅ You're running the latest version: $LOCAL_VERSION"
+  fi
+fi
+```
+
+---
+
 ## 🎯 Trigger
 
 When user sends any of these in OpenClaw chat:
