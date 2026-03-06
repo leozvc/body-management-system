@@ -1,0 +1,12 @@
+{
+  "meal_name": "今日营养汇总",
+  "meal_time": "2026-02-26T14:28:05+08:00",
+  "wellness": {
+    "kcalConsumed": 2065,
+    "protein": 186.16,
+    "fatTotal": 86.42,
+    "carbohydrates": 125.64,
+    "hydrationVolume": 1.25,
+    "comments": "按今日已确认摄入汇总更新"
+  }
+}

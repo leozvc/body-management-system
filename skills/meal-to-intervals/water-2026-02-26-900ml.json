@@ -1,0 +1,7 @@
+{
+  "meal_name": "饮水",
+  "meal_time": "2026-02-26T11:21:28+08:00",
+  "items": [
+    {"name": "water", "grams": 900}
+  ]
+}

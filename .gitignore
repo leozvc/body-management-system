@@ -23,13 +23,25 @@ wheels/
 .installed.cfg
 *.egg
 
-# Config files with secrets
+# Config files with secrets (DO NOT COMMIT)
 config.json
 *.key
 *.secret
+*.env
 
-# Installation scripts (generated)
-install-remote.sh
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
 
 # IDE
 .vscode/

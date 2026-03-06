@@ -1,0 +1,12 @@
+{
+  "meal_name": "午餐（照片估算）",
+  "meal_time": "2026-02-26T12:06:14+08:00",
+  "items": [
+    {"name": "white rice", "grams": 220},
+    {"name": "egg", "grams": 100},
+    {"name": "tomato", "grams": 150},
+    {"name": "chicken breast", "grams": 120},
+    {"name": "potato", "grams": 150},
+    {"name": "cooking oil", "grams": 12}
+  ]
+}

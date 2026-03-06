@@ -1,0 +1,11 @@
+{
+  "intervals_icu": {
+    "api_key": "6v48pzlyu6jv48m7ndjjiqq0p",
+    "athlete_id": "i206099"
+  },
+  "fitness_goals": {
+    "primary_goal": "endurance",
+    "target_wattage": 300,
+    "training_days_per_week": 5
+  }
+}

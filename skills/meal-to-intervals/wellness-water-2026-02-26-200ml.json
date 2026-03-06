@@ -1,0 +1,8 @@
+{
+  "meal_name": "饮水记录",
+  "meal_time": "2026-02-26T11:23:29+08:00",
+  "wellness": {
+    "hydration": 0,
+    "comments": "追加饮水 200ml"
+  }
+}

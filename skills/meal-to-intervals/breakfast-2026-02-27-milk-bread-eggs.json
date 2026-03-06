@@ -1,0 +1,9 @@
+{
+  "meal_name": "早餐",
+  "meal_time": "2026-02-27T08:25:54+08:00",
+  "items": [
+    {"name": "milk", "grams": 250},
+    {"name": "whole wheat bread", "grams": 60},
+    {"name": "egg", "grams": 100}
+  ]
+}

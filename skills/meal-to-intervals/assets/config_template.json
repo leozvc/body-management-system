@@ -1,0 +1,12 @@
+{
+  "intervals_icu": {
+    "api_key": "YOUR_INTERVALS_ICU_API_KEY",
+    "athlete_id": "i123456",
+    "wellness_nutrition_field_map": {
+      "caloriesKcal": "calories",
+      "proteinG": "protein",
+      "fatG": "fat",
+      "carbsG": "carbs"
+    }
+  }
+}

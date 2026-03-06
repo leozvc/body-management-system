@@ -1,0 +1,8 @@
+{
+  "meal_name": "饮水汇总",
+  "meal_time": "2026-02-27T16:53:38+08:00",
+  "wellness": {
+    "hydrationVolume": 1.0,
+    "comments": "今日累计饮水 1000ml"
+  }
+}
