@@ -1,9 +1,23 @@
 # 🏋️ Body Management System
 
-> Automated health tracking and training recommendations for OpenClaw
+> **Privacy-first** automated health tracking and training recommendations for OpenClaw
 
+[![Version](https://img.shields.io/badge/version-1.1.0-green.svg)](CHANGELOG.md)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![OpenClaw](https://img.shields.io/badge/powered%20by-OpenClaw-orange.svg)](https://openclaw.ai)
+[![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://python.org)
+
+---
+
+## ⭐ What's New in v1.1.0
+
+- ✅ Enhanced config validation with helpful error messages
+- ✅ Automatic retry logic for transient failures  
+- ✅ Structured logging with timestamps
+- ✅ Improved privacy protection with comprehensive `.gitignore`
+- ✅ Better documentation including CHANGELOG and SECURITY policy
+
+See [CHANGELOG.md](CHANGELOG.md) for full details.
 
 ---
 
@@ -45,13 +59,13 @@ cat body-management/INSTALL.md
 | **meal-to-intervals** | Auto-log meals to intervals.icu with calculated macros |
 | **intervals-status-reporter** | Generate standardized body status reports |
 
-### Features
+### Key Features
 
 - ✅ **Automated Diet Logging** - Text input, auto-sync to intervals.icu
-- ✅ **Body Status Analysis** - HRV, sleep, training load, fatigue
+- ✅ **Body Status Analysis** - HRV, sleep, training load, fatigue tracking
 - ✅ **Smart Recommendations** - Training advice based on your data
 - ✅ **Daily Reminders** - Optional 06:00 diet target notifications
-- ✅ **Privacy First** - Data stays in your intervals.icu account
+- ✅ **Privacy First** - All data stays on your machine
 
 ---
 
@@ -66,7 +80,7 @@ After installation, send in OpenClaw chat:
 You'll get:
 ```
 📊 身体状态报告
-日期：2026-03-06
+日期：2026-03-08
 
 ═══ 核心指标 ═══
 ✅ 静息心率：56 bpm
@@ -82,17 +96,6 @@ TSB: -7.3 (轻度疲劳)
 ✅ 推荐：Zone 1-2 低强度训练
 ⚠️ 避免：高强度间歇
 ```
-
----
-
-## 📚 Documentation
-
-| File | Description |
-|------|-------------|
-| **[INSTALL.md](INSTALL.md)** | Detailed installation guide |
-| **[USAGE_PROMPTS.md](USAGE_PROMPTS.md)** | Copy-paste prompts & examples |
-| **[body-management-system.md](../../body-management-system.md)** | Full feature overview |
-| **[body-management-deployment-checklist.md](../../body-management-deployment-checklist.md)** | Deployment checklist |
 
 ---
 
@@ -124,64 +127,48 @@ openclaw cron list
 
 ---
 
-## 🎓 Example Usage
-
-See **[USAGE_PROMPTS.md](USAGE_PROMPTS.md)** for:
-- ✅ Complete prompt library
-- ✅ Example conversations
-- ✅ Pro tips & workflows
-- ✅ Troubleshooting guide
-
----
-
-## 📦 Project Structure
-
-```
-body-management-system/
-├── skills/
-│   ├── meal-to-intervals/          # Diet logging skill
-│   └── intervals-status-reporter/  # Body status analysis skill
-├── config.json                     # API credentials (create from template)
-├── cron-daily-diet.json            # Daily reminder template
-├── setup.sh                        # One-click installer
-├── INSTALL.md                      # Installation guide ⭐
-├── USAGE_PROMPTS.md                # Usage examples ⭐
-├── README.md                       # This file
-└── LICENSE                         # MIT License
-```
-
----
-
 ## 🔧 Configuration
 
 ### Setup API Credentials
 
-1. Get intervals.icu API key:
+1. **Get intervals.icu API key:**
    - Login to https://intervals.icu
    - Settings → API → Copy **Password** field
 
-2. Create `config.json`:
-   ```json
-   {
-     "intervals_icu": {
-       "api_key": "YOUR_API_KEY",
-       "athlete_id": "i206099"
-     }
-   }
+2. **Create configuration:**
+   ```bash
+   # Config will be saved to your data directory
+   ~/.openclaw/workspace/body-management-data/config.json
    ```
 
-3. Copy to skill directories:
+3. **Verify connection:**
    ```bash
-   cp config.json skills/meal-to-intervals/
-   cp config.json skills/intervals-status-reporter/
+   cd skills/intervals-status-reporter
+   python3 scripts/body_status_report.py
    ```
+
+See [INSTALL.md](INSTALL.md) for detailed setup instructions.
+
+---
+
+## 📚 Documentation
+
+| File | Purpose |
+|------|---------|
+| **[INSTALL.md](INSTALL.md)** | Detailed installation guide |
+| **[USAGE_PROMPTS.md](USAGE_PROMPTS.md)** | Copy-paste prompts & examples |
+| **[DATA_STORAGE.md](../../body-management-data/DATA_STORAGE.md)** | Data storage best practices |
+| **[CONTRIBUTING.md](CONTRIBUTING.md)** | How to contribute to the project |
+| **[SECURITY.md](SECURITY.md)** | Security policy and vulnerability reporting |
+| **[CHANGELOG.md](CHANGELOG.md)** | Version history and changes |
 
 ---
 
 ## 🐛 Troubleshooting
 
-**Problem: Skills not working**
+### Common Issues
 
+**Problem: Skills not working**
 ```bash
 # Check installation
 openclaw skills list
@@ -192,18 +179,47 @@ python3 scripts/body_status_report.py
 ```
 
 **Problem: API authentication failed**
-
 - Verify API key is the **Password** field (not username)
-- Verify Athlete ID format: `i` + numbers
+- Verify Athlete ID format: `i` + numbers (e.g., i206099)
+- Check internet connection
+- See [INSTALL.md](INSTALL.md) for more troubleshooting steps
 
-See **[INSTALL.md](INSTALL.md)** for detailed troubleshooting.
+**Problem: Config validation errors**
+- Ensure config.json exists in `~/.openclaw/workspace/body-management-data/`
+- Verify both `api_key` and `athlete_id` fields are present
+- Check file permissions (should be readable by user)
+
+---
+
+## 🔒 Privacy & Security
+
+Your data is **never** sent to external servers except to intervals.icu:
+
+- ✅ **API keys** stored locally in `body-management-data/config.json`
+- ✅ **Meal records** stored in `body-management-data/meals/`
+- ✅ **Wellness data** stored in `body-management-data/wellness/`
+- ❌ **No data collection** - We don't track or log user information
+
+See [SECURITY.md](SECURITY.md) for our security policy.
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for:
+
+- Bug report templates
+- Feature request guidelines
+- Code contribution standards
+- Testing requirements
 
 ---
 
 ## 📞 Support
 
-- **Issues**: https://github.com/leozvc/body-management-system/issues
-- **Discussions**: https://github.com/leozvc/body-management-system/discussions
+- **Issues:** https://github.com/leozvc/body-management-system/issues
+- **Discussions:** https://github.com/leozvc/body-management-system/discussions
+- **Security:** See [SECURITY.md](SECURITY.md)
 
 ---
 
@@ -213,6 +229,15 @@ MIT License - See [LICENSE](LICENSE) file.
 
 ---
 
-**Version:** 1.0.0  
+## 🙏 Acknowledgments
+
+- **[intervals.icu](https://intervals.icu)** - Excellent health tracking platform
+- **[OpenClaw](https://openclaw.ai)** - Powerful automation framework
+- **[OpenFoodFacts](https://world.openfoodfacts.org)** - Free nutrition database
+
+---
+
+**Version:** 1.1.0  
 **Author:** leozvc  
-**Last Updated:** 2026-03-06
+**Last Updated:** 2026-03-08  
+**License:** MIT

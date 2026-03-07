@@ -1,18 +1,33 @@
-# ============ USER DATA (NEVER COMMIT) ============
+# ===== Body Management System - Git Ignore v2.0 =====
+# 
+# CRITICAL: NEVER COMMIT USER DATA OR CONFIGURATIONS
+# This protects your API keys, health data, and personal information
 
-# User data directory (in workspace root)
+# ============================================
+# USER DATA (CRITICAL - PRIVACY)
+# ============================================
+
+# User-specific data directory
 ../../body-management-data/
 ../../body-management-data/**/*
 
-# Config files with secrets
+# Config files with secrets (extra protection)
 config.json
+config.local.json
 skills/*/config.json
+skills/*/config.local.json
+
+# Sensitive credential files
 *.key
 *.secret
-*.env
 *.pem
+.env
+.env.local
+.env.*.local
 
-# ============ PYTHON ============
+# ============================================
+# PYTHON ARTIFACTS
+# ============================================
 
 __pycache__/
 *.py[cod]
@@ -21,25 +36,94 @@ __pycache__/
 .Python
 *.egg-info/
 .eggs/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.manifest
+*.spec
 
-# ============ IDE ============
+# ============================================
+# VIRTUAL ENVIRONMENTS  
+# ============================================
 
-.vscode/
+env/
+venv/
+ENV/
+.venv/
+.python-version
+
+# ============================================
+# IDE & EDITOR FILES
+# ============================================
+
 .idea/
+.vscode/
 *.swp
 *.swo
 *~
 .DS_Store
 Thumbs.db
+.project
+.settings/
+.classpath
 
-# ============ LOGS ============
+# ============================================
+# LOGGING FILES
+# ============================================
 
 *.log
 logs/
+output.log
+debug.log
 
-# ============ TEMP ============
+# ============================================
+# TESTING
+# ============================================
 
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+
+# ============================================
+# BACKUP & TEMPORARY FILES
+# ============================================
+
+*.bak
+*.backup
+*.old
 tmp/
 temp/
-*.tmp
-.cache/
+.tmp/
+.temp/
+.scratch/
+
+# ============================================
+# OPENCLAW WORKSPACE SPECIFIC
+# ============================================
+
+# Skip all body-management-data except docs
+!../../body-management-data/README.md
+!../../body-management-data/DATA_STORAGE.md
+!../../body-management-data/MIGRATION.md
+!../../body-management-data/VERSION
+
+# ============================================
+# DOCUMENTATION BUILD OUTPUTS
+# ============================================
+
+docs/_build/
+site/
+_build/
+html/
